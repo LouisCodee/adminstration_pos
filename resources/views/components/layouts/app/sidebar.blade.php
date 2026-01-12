@@ -15,16 +15,48 @@
 
         <flux:navlist variant="outline">
             <!-- Platform -->
-            <flux:navlist.group expandable heading="{{ __('Platform') }}" icon="squares-2x2"
+            <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')"
+                wire:navigate>
+                {{ __('Dashboard') }}
+            </flux:navlist.item>
+
+
+            @if (auth()->user()->can('view_users') || auth()->user()->can('create_users') || auth()->user()->can('update_users') || auth()->user()->can('delete_users'))
+                <flux:navlist.item icon="users" :href="route('users.index')"
+                    :current="request()->routeIs('users.index')" wire:navigate>{{ __('Users') }}</flux:navlist.item>
+            @endif
+
+            {{-- <flux:navlist.group expandable heading="{{ __('Platform') }}" icon="squares-2x2"
                 :expanded="request()->routeIs('dashboard')">
                 <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')"
                     wire:navigate>
                     {{ __('Dashboard') }}
                 </flux:navlist.item>
+            </flux:navlist.group> --}}
+
+            <!-- Sales -->
+            <flux:navlist.group expandable heading="Sales" icon="building-office-2"
+                :expanded="request()->is('users*') || request()->is('branches*')">
+                <flux:navlist.item icon="users" href="/users" :current="request()->is('users*')">
+                    Cash Sales
+                </flux:navlist.item>
+
+                <flux:navlist.item icon="building-storefront" href="/branches" :current="request()->is('branches*')">
+                    Credit Sales
+                </flux:navlist.item>
+
+                <flux:navlist.item icon="building-storefront" href="/branches" :current="request()->is('branches*')">
+                    Sales History
+                </flux:navlist.item>
+
+                <flux:navlist.item icon="building-storefront" href="/branches" :current="request()->is('branches*')">
+                    Customers
+                </flux:navlist.item>
             </flux:navlist.group>
 
-            <!-- Management -->
-            <flux:navlist.group expandable heading="Management" icon="building-office-2"
+
+            {{-- Purchase --}}
+            <flux:navlist.group expandable heading="Purchasang" icon="building-office-2"
                 :expanded="request()->is('users*') || request()->is('branches*')">
                 <flux:navlist.item icon="users" href="/users" :current="request()->is('users*')">
                     Users
@@ -34,6 +66,56 @@
                     Branches
                 </flux:navlist.item>
             </flux:navlist.group>
+
+
+            {{-- Inventory --}}
+            <flux:navlist.group expandable heading="Inventory" icon="building-office-2"
+                :expanded="request()->is('users*') || request()->is('branches*')">
+                <flux:navlist.item icon="users" href="/users" :current="request()->is('users*')">
+                    Current Stock
+                </flux:navlist.item>
+
+                <flux:navlist.item icon="building-storefront" href="/branches" :current="request()->is('branches*')">
+                    Products List
+                </flux:navlist.item>
+
+                <flux:navlist.item icon="building-storefront" href="/branches" :current="request()->is('branches*')">
+                    Price List
+                </flux:navlist.item>
+
+                <flux:navlist.item icon="building-storefront" href="/branches" :current="request()->is('branches*')">
+                    Stock Adjustment
+                </flux:navlist.item>
+
+                <flux:navlist.item icon="building-storefront" href="/branches" :current="request()->is('branches*')">
+                    Stock Count
+                </flux:navlist.item>
+            </flux:navlist.group>
+
+            {{-- Accounting --}}
+            <flux:navlist.group expandable heading="Accounting" icon="building-office-2"
+                :expanded="request()->is('users*') || request()->is('branches*')">
+                <flux:navlist.item icon="users" href="/users" :current="request()->is('users*')">
+                    Users
+                </flux:navlist.item>
+
+                <flux:navlist.item icon="building-storefront" href="/branches" :current="request()->is('branches*')">
+                    Branches
+                </flux:navlist.item>
+            </flux:navlist.group>
+
+            {{-- Reports --}}
+            <flux:navlist.group expandable heading="Reports" icon="building-office-2"
+                :expanded="request()->is('users*') || request()->is('branches*')">
+                <flux:navlist.item icon="users" href="/users" :current="request()->is('users*')">
+                    Users
+                </flux:navlist.item>
+
+                <flux:navlist.item icon="building-storefront" href="/branches" :current="request()->is('branches*')">
+                    Branches
+                </flux:navlist.item>
+            </flux:navlist.group>
+
 
 
         </flux:navlist>

@@ -3,6 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
+use App\Livewire\Users\UserIndex;
+use App\Livewire\Users\UserCreate;
+use App\Livewire\Users\UserEdit;
+use App\Livewire\Users\UserShow;
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,11 +23,18 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/password', 'settings.password')->name('user-password.edit');
     Volt::route('settings/appearance', 'settings.appearance')->name('appearance.edit');
 
+
+    Route::get('users', UserIndex::class)->name('users.index')->middleware('permission:view_users|create_users|delete_users|update_users');
+    Route::get('user/create', UserCreate::class)->name('user.create')->middleware('permission:create_users');
+    Route::get('user/{id}/edit', UserEdit::class)->name('user.edit')->middleware('permission:update_users');
+    Route::get('user/{id}/show', UserShow::class)->name('user.show')->middleware('permission:view_users');
+
+
     Volt::route('settings/two-factor', 'settings.two-factor')
         ->middleware(
             when(
                 Features::canManageTwoFactorAuthentication()
-                    && Features::optionEnabled(Features::twoFactorAuthentication(), 'confirmPassword'),
+                && Features::optionEnabled(Features::twoFactorAuthentication(), 'confirmPassword'),
                 ['password.confirm'],
                 [],
             ),
