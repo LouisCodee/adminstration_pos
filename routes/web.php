@@ -1,5 +1,9 @@
 <?php
 
+use App\Livewire\Business\BusinessCreate;
+use App\Livewire\Business\BusinessEdit;
+use App\Livewire\Business\BusinessIndex;
+use App\Livewire\Business\BusinessShow;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
@@ -28,6 +32,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('user/create', UserCreate::class)->name('user.create')->middleware('permission:create_users');
     Route::get('user/{id}/edit', UserEdit::class)->name('user.edit')->middleware('permission:update_users');
     Route::get('user/{id}/show', UserShow::class)->name('user.show')->middleware('permission:view_users');
+
+
+    // Business Routes
+    Route::get('business', BusinessIndex::class)->name('business.index')->middleware('permission:view_business|create_business|delete_business|update_business');
+    Route::get('business/create', BusinessCreate::class)->name('business.create')->middleware('permission:create_business');
+    Route::get('business/{id}/edit', BusinessEdit::class)->name('business.edit')->middleware('permission:update_business');
+    Route::get('business/{id}/show', BusinessShow::class)->name('business.show')->middleware('permission:view_business');
+
 
 
     Volt::route('settings/two-factor', 'settings.two-factor')

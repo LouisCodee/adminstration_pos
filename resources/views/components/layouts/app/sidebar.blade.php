@@ -21,22 +21,31 @@
             </flux:navlist.item>
 
 
-            @if (auth()->user()->can('view_users') || auth()->user()->can('create_users') || auth()->user()->can('update_users') || auth()->user()->can('delete_users'))
-                <flux:navlist.item icon="users" :href="route('users.index')"
-                    :current="request()->routeIs('users.index')" wire:navigate>{{ __('Users') }}</flux:navlist.item>
+            @if (auth()->user()->can('manage_system_users') || auth()->user()->can('manage_businesses'))
+                {{-- <flux:navlist.item icon="users" :href="route('users.index')"
+                    :current="request()->routeIs('users.index')" wire:navigate>{{ __('Users') }}</flux:navlist.item> --}}
+
+                <flux:navlist.group expandable heading="Admin Management" icon="building-office-2"
+                    :expanded="request()->is('users*') || request()->is('business*')">
+                    <flux:navlist.item icon="users" href="{{ route('users.index') }}"
+                        :current="request()->is('users*')">
+                        Users
+                    </flux:navlist.item>
+
+                    <flux:navlist.item icon="building-storefront" href="{{ route('business.index') }}"
+                        :current="request()->is('business*')">
+                        Business
+                    </flux:navlist.item>
+
+
+                </flux:navlist.group>
             @endif
 
-            {{-- <flux:navlist.group expandable heading="{{ __('Platform') }}" icon="squares-2x2"
-                :expanded="request()->routeIs('dashboard')">
-                <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')"
-                    wire:navigate>
-                    {{ __('Dashboard') }}
-                </flux:navlist.item>
-            </flux:navlist.group> --}}
+
 
             <!-- Sales -->
             <flux:navlist.group expandable heading="Sales" icon="building-office-2"
-                :expanded="request()->is('users*') || request()->is('branches*')">
+                :expanded="request()->is('') || request()->is('branches*')">
                 <flux:navlist.item icon="users" href="/users" :current="request()->is('users*')">
                     Cash Sales
                 </flux:navlist.item>
@@ -57,7 +66,7 @@
 
             {{-- Purchase --}}
             <flux:navlist.group expandable heading="Purchasang" icon="building-office-2"
-                :expanded="request()->is('users*') || request()->is('branches*')">
+                :expanded="request()->is('') || request()->is('branches*')">
                 <flux:navlist.item icon="users" href="/users" :current="request()->is('users*')">
                     Users
                 </flux:navlist.item>
@@ -70,7 +79,7 @@
 
             {{-- Inventory --}}
             <flux:navlist.group expandable heading="Inventory" icon="building-office-2"
-                :expanded="request()->is('users*') || request()->is('branches*')">
+                :expanded="request()->is('') || request()->is('branches*')">
                 <flux:navlist.item icon="users" href="/users" :current="request()->is('users*')">
                     Current Stock
                 </flux:navlist.item>
@@ -94,7 +103,7 @@
 
             {{-- Accounting --}}
             <flux:navlist.group expandable heading="Accounting" icon="building-office-2"
-                :expanded="request()->is('users*') || request()->is('branches*')">
+                :expanded="request()->is('') || request()->is('branches*')">
                 <flux:navlist.item icon="users" href="/users" :current="request()->is('users*')">
                     Users
                 </flux:navlist.item>
@@ -105,7 +114,7 @@
             </flux:navlist.group>
 
             {{-- Reports --}}
-            <flux:navlist.group expandable heading="Reports" icon="building-office-2"
+            {{-- <flux:navlist.group expandable heading="Reports" icon="building-office-2"
                 :expanded="request()->is('users*') || request()->is('branches*')">
                 <flux:navlist.item icon="users" href="/users" :current="request()->is('users*')">
                     Users
@@ -114,7 +123,68 @@
                 <flux:navlist.item icon="building-storefront" href="/branches" :current="request()->is('branches*')">
                     Branches
                 </flux:navlist.item>
+            </flux:navlist.group> --}}
+
+
+            {{-- Settings --}}
+            <flux:navlist.group expandable heading="Settings" icon="cog-6-tooth"
+                :expanded="request()->routeIs('settings.*')">
+
+                <!-- General – expandable -->
+                <flux:navlist.group expandable heading="General" icon="adjustments-horizontal"
+                    :expanded="request()->routeIs('settings.general.*')">
+                    <flux:navlist.item icon="cog-8-tooth" href=""
+                        :current="request()->routeIs('settings.general.configurations')">
+                        Configurations
+                    </flux:navlist.item>
+
+                    <flux:navlist.item icon="tag" href=""
+                        :current="request()->routeIs('settings.general.product-categories')">
+                        Product Categories
+                    </flux:navlist.item>
+
+                    <flux:navlist.item icon="currency-dollar"
+                        href=""
+                        :current="request()->routeIs('settings.general.price-categories')">
+                        Price Categories
+                    </flux:navlist.item>
+
+                    <flux:navlist.item icon="building-office-2" href=""
+                        :current="request()->routeIs('settings.general.branches')">
+                        Branches
+                    </flux:navlist.item>
+                </flux:navlist.group>
+
+                <!-- Security – expandable -->
+                <flux:navlist.group expandable heading="Security" icon="shield-check"
+                    :expanded="request()->routeIs('settings.security.*')">
+                    <flux:navlist.item href="" :current="request()->routeIs('settings.security.password')">
+                        Change Password
+                    </flux:navlist.item>
+                    <flux:navlist.item href="" :current="request()->routeIs('settings.security.2fa')">
+                        Two-Factor Authentication
+                    </flux:navlist.item>
+                    <flux:navlist.item href="" :current="request()->routeIs('settings.security.sessions')">
+                        Active Sessions
+                    </flux:navlist.item>
+                </flux:navlist.group>
+
+                <!-- Tools – expandable -->
+                <flux:navlist.group expandable heading="Tools" icon="wrench-screwdriver"
+                    :expanded="request()->routeIs('settings.tools.*')">
+                    <flux:navlist.item href="" :current="request()->routeIs('settings.tools.backup')">
+                        Backup & Restore
+                    </flux:navlist.item>
+                    <flux:navlist.item href="" :current="request()->routeIs('settings.tools.logs')">
+                        System Logs
+                    </flux:navlist.item>
+                    <flux:navlist.item href="" :current="request()->routeIs('settings.tools.api')">
+                        API Keys
+                    </flux:navlist.item>
+                </flux:navlist.group>
+
             </flux:navlist.group>
+
 
 
 
@@ -208,8 +278,8 @@
 
                 <form method="POST" action="{{ route('logout') }}" class="w-full">
                     @csrf
-                    <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full"
-                        data-test="logout-button">
+                    <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle"
+                        class="w-full" data-test="logout-button">
                         {{ __('Log Out') }}
                     </flux:menu.item>
                 </form>

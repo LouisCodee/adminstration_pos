@@ -10,7 +10,7 @@ class UserEdit extends Component
 {
     public $user, $name, $email, $password, $confirm_password, $allRoles;
 
-        public $roles = [];
+    public $roles = [];
 
     public function mount($id)
     {

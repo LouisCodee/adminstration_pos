@@ -20,6 +20,7 @@ class PermissionSeeder extends Seeder
             'update_business',
             'delete_business',
             'manage_business_settings',
+            'manage_businesses',
 
             // Branches
             'view_branches',
@@ -35,6 +36,7 @@ class PermissionSeeder extends Seeder
             'delete_users',
             'assign_roles',
             'reset_user_password',
+            'manage_system_users',
 
             // Sales
             'create_sales',
