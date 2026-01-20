@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Branch extends Model
 {
@@ -27,4 +28,21 @@ class Branch extends Model
     {
         return $this->hasMany(Sale::class);
     }
+
+    public function scopeForUser(Builder $query, $user)
+    {
+        // Super Admin → everything
+        if ($user->hasRole('super_admin')) {
+            return $query;
+        }
+
+        // Manager → branches under same business
+        if ($user->hasRole('manager')) {
+            return $query->where('business_id', $user->business_id);
+        }
+
+        // Staff / Cashier → own branch only
+        return $query->where('id', $user->branch_id);
+    }
+
 }

@@ -128,7 +128,7 @@
 
             {{-- Settings --}}
             <flux:navlist.group expandable heading="Settings" icon="cog-6-tooth"
-                :expanded="request()->routeIs('settings.*')">
+                :expanded="request()->routeIs('users.*')">
 
                 <!-- General – expandable -->
                 <flux:navlist.group expandable heading="General" icon="adjustments-horizontal"
@@ -143,8 +143,7 @@
                         Product Categories
                     </flux:navlist.item>
 
-                    <flux:navlist.item icon="currency-dollar"
-                        href=""
+                    <flux:navlist.item icon="currency-dollar" href=""
                         :current="request()->routeIs('settings.general.price-categories')">
                         Price Categories
                     </flux:navlist.item>
@@ -157,16 +156,16 @@
 
                 <!-- Security – expandable -->
                 <flux:navlist.group expandable heading="Security" icon="shield-check"
-                    :expanded="request()->routeIs('settings.security.*')">
-                    <flux:navlist.item href="" :current="request()->routeIs('settings.security.password')">
-                        Change Password
+                    :expanded="request()->routeIs('users.*')">
+                    <flux:navlist.item icon="users" href="{{ route('users.index') }}"
+                        :current="request()->routeIs('users.*')">
+                        Users
                     </flux:navlist.item>
-                    <flux:navlist.item href="" :current="request()->routeIs('settings.security.2fa')">
-                        Two-Factor Authentication
+                    <flux:navlist.item icon="cog-8-tooth" href=""
+                        :current="request()->routeIs('settings.general.product-categories')">
+                        Roles
                     </flux:navlist.item>
-                    <flux:navlist.item href="" :current="request()->routeIs('settings.security.sessions')">
-                        Active Sessions
-                    </flux:navlist.item>
+
                 </flux:navlist.group>
 
                 <!-- Tools – expandable -->
@@ -191,9 +190,6 @@
         </flux:navlist>
 
         <flux:spacer />
-
-
-
 
         <!-- Desktop User Menu -->
         <flux:dropdown class="hidden lg:block" position="bottom" align="start">

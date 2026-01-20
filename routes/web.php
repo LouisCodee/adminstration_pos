@@ -1,5 +1,9 @@
 <?php
 
+use App\Livewire\Branch\BranchCreate;
+use App\Livewire\Branch\BranchEdit;
+use App\Livewire\Branch\BranchIndex;
+use App\Livewire\Branch\BranchShow;
 use App\Livewire\Business\BusinessCreate;
 use App\Livewire\Business\BusinessEdit;
 use App\Livewire\Business\BusinessIndex;
@@ -40,6 +44,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('business/{id}/edit', BusinessEdit::class)->name('business.edit')->middleware('permission:update_business');
     Route::get('business/{id}/show', BusinessShow::class)->name('business.show')->middleware('permission:view_business');
 
+
+    Route::get('branches', BranchIndex::class)->name('branch.index')->middleware('permission:view_branches|create_branches|delete_branches|update_branches');
+    Route::get('branches/create', BranchCreate::class)->name('branch.create')->middleware('permission:create_branches');
+    Route::get('branches/{id}/edit', BranchEdit::class)->name('branch.edit')->middleware('permission:update_branches');
+    Route::get('branches/{id}/show', BranchShow::class)->name('branch.show')->middleware('permission:view_branches');
 
 
     Volt::route('settings/two-factor', 'settings.two-factor')
