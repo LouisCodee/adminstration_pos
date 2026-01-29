@@ -18,4 +18,13 @@ class BranchIndex extends Component
             'branches' => $branches,
         ]);
     }
+
+    public function delete($id)
+    {
+        $branch = Branch::findOrFail($id);
+
+        // Authorization logic can be added here if needed
+
+        $branch->delete();
+    }
 }

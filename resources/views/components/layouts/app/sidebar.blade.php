@@ -45,7 +45,7 @@
 
             <!-- Sales -->
             <flux:navlist.group expandable heading="Sales" icon="building-office-2"
-                :expanded="request()->is('') || request()->is('branches*')">
+                :expanded="request()->is('')">
                 <flux:navlist.item icon="users" href="/users" :current="request()->is('users*')">
                     Cash Sales
                 </flux:navlist.item>
@@ -65,52 +65,46 @@
 
 
             {{-- Purchase --}}
-            <flux:navlist.group expandable heading="Purchasang" icon="building-office-2"
-                :expanded="request()->is('') || request()->is('branches*')">
+            <flux:navlist.group expandable heading="Purchase" icon="building-office-2"
+                :expanded="request()->is('')">
                 <flux:navlist.item icon="users" href="/users" :current="request()->is('users*')">
                     Users
                 </flux:navlist.item>
 
-                <flux:navlist.item icon="building-storefront" href="/branches" :current="request()->is('branches*')">
-                    Branches
-                </flux:navlist.item>
             </flux:navlist.group>
 
 
             {{-- Inventory --}}
             <flux:navlist.group expandable heading="Inventory" icon="building-office-2"
-                :expanded="request()->is('') || request()->is('branches*')">
+                :expanded="request()->is('')">
                 <flux:navlist.item icon="users" href="/users" :current="request()->is('users*')">
                     Current Stock
                 </flux:navlist.item>
 
-                <flux:navlist.item icon="building-storefront" href="/branches" :current="request()->is('branches*')">
+                <flux:navlist.item icon="building-storefront" href="" :current="request()->is('')">
                     Products List
                 </flux:navlist.item>
 
-                <flux:navlist.item icon="building-storefront" href="/branches" :current="request()->is('branches*')">
+                <flux:navlist.item icon="building-storefront" href="" :current="request()->is('')">
                     Price List
                 </flux:navlist.item>
 
-                <flux:navlist.item icon="building-storefront" href="/branches" :current="request()->is('branches*')">
+                <flux:navlist.item icon="building-storefront" href="" :current="request()->is('')">
                     Stock Adjustment
                 </flux:navlist.item>
 
-                <flux:navlist.item icon="building-storefront" href="/branches" :current="request()->is('branches*')">
+                <flux:navlist.item icon="building-storefront" href="" :current="request()->is('')">
                     Stock Count
                 </flux:navlist.item>
             </flux:navlist.group>
 
             {{-- Accounting --}}
             <flux:navlist.group expandable heading="Accounting" icon="building-office-2"
-                :expanded="request()->is('') || request()->is('branches*')">
+                :expanded="request()->is('')">
                 <flux:navlist.item icon="users" href="/users" :current="request()->is('users*')">
                     Users
                 </flux:navlist.item>
 
-                <flux:navlist.item icon="building-storefront" href="/branches" :current="request()->is('branches*')">
-                    Branches
-                </flux:navlist.item>
             </flux:navlist.group>
 
             {{-- Reports --}}
@@ -128,11 +122,11 @@
 
             {{-- Settings --}}
             <flux:navlist.group expandable heading="Settings" icon="cog-6-tooth"
-                :expanded="request()->routeIs('users.*')">
+                :expanded="request()->routeIs('users.*') || request()->routeIs('branch.*')">
 
                 <!-- General – expandable -->
                 <flux:navlist.group expandable heading="General" icon="adjustments-horizontal"
-                    :expanded="request()->routeIs('settings.general.*')">
+                    :expanded="request()->routeIs('settings.general.*') || request()->routeIs('branch.*')">
                     <flux:navlist.item icon="cog-8-tooth" href=""
                         :current="request()->routeIs('settings.general.configurations')">
                         Configurations
@@ -148,8 +142,8 @@
                         Price Categories
                     </flux:navlist.item>
 
-                    <flux:navlist.item icon="building-office-2" href=""
-                        :current="request()->routeIs('settings.general.branches')">
+                    <flux:navlist.item icon="building-office-2" href="{{ route('branch.index') }}"
+                        :current="request()->routeIs('branch.index')">
                         Branches
                     </flux:navlist.item>
                 </flux:navlist.group>

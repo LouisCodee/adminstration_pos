@@ -10,7 +10,7 @@
             </p>
         </div>
 
-        @can('create_branch')
+        @can('create_branches')
             <a href="{{ route('branch.create') }}"
                 class="inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold rounded-lg
                       bg-indigo-600 text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2
@@ -83,7 +83,7 @@
                                     class="flex items-center justify-end gap-4 opacity-80 group-hover:opacity-100 transition-opacity">
                                     <!-- View (optional – remove if no show route) -->
                                     @can('view_branches')
-                                        <a href="{{ route('branch.show', $branch) ?? '#' }}"
+                                        <a href="{{ route('branch.show', $branch->id) ?? '#' }}"
                                             class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group relative"
                                             title="View branch details">
                                             <svg class="w-5 h-5 text-gray-600 dark:text-gray-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors"

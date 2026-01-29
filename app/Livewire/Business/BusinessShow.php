@@ -10,10 +10,11 @@ class BusinessShow extends Component
 
     public $business;
 
-    public function mount($id){
+    public function mount($id)
+    {
         $this->business = Business::find($id);
     }
-    
+
     public function render()
     {
         return view('livewire.business.business-show');

@@ -32,7 +32,7 @@ class Branch extends Model
     public function scopeForUser(Builder $query, $user)
     {
         // Super Admin → everything
-        if ($user->hasRole('super_admin')) {
+        if ($user->hasRole('super-admin')) {
             return $query;
         }
 

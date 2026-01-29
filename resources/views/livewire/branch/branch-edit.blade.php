@@ -3,20 +3,20 @@
         <!-- Header -->
         <div class="mb-10 text-center sm:text-left">
             <h1 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
-                {{ __('Edit Business') }}
+                {{ __('Edit Branch') }}
             </h1>
             <p class="mt-2 text-lg text-gray-600 dark:text-gray-400">
-                {{ __('Update business information') }}
+                {{ __('Update Branch information') }}
             </p>
 
             <div class="mt-6">
-                <a href="{{ route('business.index') }}"
+                <a href="{{ route('branch.index') }}"
                     class="inline-flex items-center px-5 py-2.5 text-sm font-medium rounded-lg
                           border border-gray-300 text-gray-700 bg-white
                           hover:bg-gray-50 hover:text-gray-900
                           dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300
                           dark:hover:bg-gray-700 dark:hover:text-white transition-colors">
-                    ← {{ __('Back to Businesses') }}
+                    ← {{ __('Back to Branches') }}
                 </a>
             </div>
         </div>
@@ -56,13 +56,20 @@
                     <!-- Name -->
                     <div>
                         <label for="name" class="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">
-                            {{ __('Business Name') }}
+                            {{ __('Branch Name') }}
                         </label>
                         <input id="name" type="text" wire:model.live.debounce.500ms="name"
                             class="block w-full rounded-lg border-gray-300 px-4 py-3.5 text-base
                                    shadow-sm focus:border-indigo-500 focus:ring-indigo-500
                                    dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
-                            placeholder="{{ __('Enter business name') }}" required />
+                            placeholder="{{ __('Enter Branch name') }}" required />
+
+
+                        <input id="location" type="text" wire:model.live.debounce.500ms="location"
+                            class="block w-full rounded-lg border-gray-300 px-4 py-3.5 text-base
+                                   shadow-sm focus:border-indigo-500 focus:ring-indigo-500
+                                   dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
+                            placeholder="{{ __('Enter Branch location') }}" required />
                     </div>
 
 
@@ -77,7 +84,7 @@
                                    transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                     wire:loading.attr="disabled">
                     <span wire:loading.remove wire:target="submit">
-                        {{ __('Update Business') }}
+                        {{ __('Update Branch') }}
                     </span>
                     <span wire:loading wire:target="submit">
                         {{ __('Updating...') }}
